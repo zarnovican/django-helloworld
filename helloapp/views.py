@@ -7,7 +7,7 @@ from django.http import HttpResponse
 
 def index(request):
     out=''
-    for k, v in os.environ.items():
+    for k, v in sorted(os.environ.items()):
         out += '{}={}\n'.format(k, v)
 
     return HttpResponse("<h2>Hello, world!</h2> <pre>"+out+"</pre>")
