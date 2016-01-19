@@ -1,6 +1,9 @@
+{% load staticfiles %}
+
 <h2>Hello, world!</h2>
 
 <ul>
   <li><a href="{% url 'env' %}">Environment</a>
   <li><a href="{% url 'slow_get' '5' %}">Slow GET (5s)</a>
+  <li><a href="{% static 'helloapp/version.txt' %}">version.txt</a>
 </ul>
