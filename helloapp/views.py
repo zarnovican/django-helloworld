@@ -7,7 +7,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("<h2>Hello, world!</h2>")
+    return render(request, 'helloapp/index.html')
 
 
 def env(request):
