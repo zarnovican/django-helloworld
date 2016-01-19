@@ -11,11 +11,7 @@ def index(request):
 
 
 def env(request):
-    out=''
-    for k, v in sorted(os.environ.items()):
-        out += '{}={}\n'.format(k, v)
-
-    return HttpResponse("<h2>Environment:</h2> <pre>"+out+"</pre>")
+    return render(request, 'helloapp/env.html', {'environ': sorted(os.environ.items())})
 
 
 def slow_get(request, time_to_wait):
