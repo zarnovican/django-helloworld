@@ -25,4 +25,4 @@ def slow_get(request, time_to_wait):
 def foo(request):
     a = 6
     b = 7
-    return HttpResponse("{} - logic generated: {}".format(settings.MY_VAR, a*b))
+    return HttpResponse("{} - logic generated: {}".format(settings.MY_VAR, a+b))
