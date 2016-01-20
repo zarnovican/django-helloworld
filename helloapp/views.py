@@ -1,6 +1,7 @@
 import os
 import time
 
+from django.conf import settings
 from django.shortcuts import render
 
 from django.http import HttpResponse
@@ -21,3 +22,7 @@ def slow_get(request, time_to_wait):
         time.sleep(1)
     return HttpResponse("{}. Responded after {} seconds.".format(out, time_to_wait))
 
+def foo(request):
+    a = 6
+    b = 7
+    return HttpResponse("{} - logic generated: {}".format(settings.MY_VAR, a*b))

@@ -121,3 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/ss/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'ss')
+
+MY_VAR = 'foo v1.0'
