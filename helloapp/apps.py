@@ -4,4 +4,6 @@ print('Importing helloapp/apps.py')
 
 class HelloappConfig(AppConfig):
     name = 'helloapp'
-    foo = 'bar'
+
+    def ready(self):
+        print('Running ready() on helloapp')
