@@ -25,5 +25,5 @@ def slow_get(request, time_to_wait):
 
 
 def foo(request):
-    code_ver = 'v2.0'
+    code_ver = 'v2.1'
     return HttpResponse("settings: {} - code: {}".format(settings.MY_VAR, code_ver))
