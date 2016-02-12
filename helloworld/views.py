@@ -8,7 +8,7 @@ from django.shortcuts import render
 
 print('importing helloworld/views.py')
 
-VERSION = '@@VERSION@@'
+VERSION = 'v1.0'
 
 def index(request):
     return render(request, 'helloworld/index.html')
