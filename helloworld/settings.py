@@ -105,4 +105,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-HELLOWORLD_VERSION = 'v1.0'
+HELLOWORLD_VERSION = 'v2.0'
