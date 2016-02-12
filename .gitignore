@@ -63,6 +63,7 @@ target/
 
 # Django generated
 db.sqlite3
+/static/
 
 # Vim
 *.swp
