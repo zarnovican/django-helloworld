@@ -18,6 +18,10 @@ def env(request):
     return render(request, 'helloworld/env.html', {'environ': sorted(os.environ.items())})
 
 
+def meta(request):
+    return render(request, 'helloworld/meta.html', {'meta': sorted(request.META.items())})
+
+
 def slow_get(request, time_to_wait):
     out = ''
     for i in range(int(time_to_wait)):
