@@ -18,6 +18,8 @@ from django.contrib import admin
 
 from . import views
 
+print('importing helloworld/urls.py')
+
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^env$', views.env, name='env'),

@@ -1,5 +1,7 @@
 from django.apps import AppConfig
 
+print('importing helloworld/app.py')
+
 class HelloworldConfig(AppConfig):
     name = 'helloworld'
 

@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+print('importing helloworld/wsgi.py')
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "helloworld.settings")
 
 application = get_wsgi_application()
