@@ -129,18 +129,11 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'console': {
-            'format': '%(asctime)s %(levelname)s %(name)s %(message)s',
-        },
         'journal': {
             'format': 'helloworld: %(name)s %(message)s',
         },
     },
     'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console',
-        },
         'journal': {
             'class': 'logging.handlers.SysLogHandler',
             'address': '/dev/log',
@@ -153,7 +146,7 @@ LOGGING = {
     },
     'root': {
         'level': 'INFO',
-        'handlers': ['console', 'journal', 'sentry'],
+        'handlers': ['journal', 'sentry'],
     },
     'loggers': {
         #'django': {
