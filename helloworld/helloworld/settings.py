@@ -119,3 +119,45 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+RAVEN_CONFIG = {
+    'dsn': '',
+    'release': '1.0',
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(asctime)s %(levelname)s %(name)s %(message)s',
+        },
+        'journal': {
+            'format': 'helloworld: %(name)s %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+        'journal': {
+            'class': 'logging.handlers.SysLogHandler',
+            'address': '/dev/log',
+            'formatter': 'journal',
+        },
+        'sentry': {
+            'level': 'WARNING',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
+    },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['console', 'journal', 'sentry'],
+    },
+    'loggers': {
+        #'django': {
+        #    'level': 'INFO',
+        #},
+    },
+}
