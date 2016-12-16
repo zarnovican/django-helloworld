@@ -12,6 +12,9 @@ logger = logging.getLogger(__name__)
 
 registry = CollectorRegistry()
 
+# application metrics
+request_latency_seconds = Summary('request_latency_seconds', 'Time spent in handling request', registry=registry)
+
 def prometheus_push():
     logger.debug('init')
     p = psutil.Process(os.getpid())
