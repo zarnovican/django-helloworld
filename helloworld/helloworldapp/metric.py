@@ -6,7 +6,7 @@ import time
 import threading
 from urllib.error import  URLError
 
-from prometheus_client import CollectorRegistry, Gauge, push_to_gateway, Summary
+from prometheus_client import CollectorRegistry, Counter, Gauge, push_to_gateway, Summary
 
 logger = logging.getLogger(__name__)
 
@@ -14,6 +14,7 @@ registry = CollectorRegistry()
 
 # application metrics
 request_latency_seconds = Summary('request_latency_seconds', 'Time spent in handling request', registry=registry)
+response_code_total = Counter('response_code_total', 'Number of responses per HTTP code', ['code'], registry=registry)
 
 def prometheus_push():
     logger.debug('init')
