@@ -15,6 +15,12 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+SERVICE_NAME = "helloworld"
+
+METRICS = "1"
+METRICS_INTERVAL = 10
+METRICS_HOST = "localhost"
+METRICS_TAGS = ""
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -89,7 +95,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'journal': {
-            'format': 'helloworld: %(name)s %(message)s',
+            'format': '{}: %(name)s %(message)s'.format(SERVICE_NAME),
         },
     },
     'handlers': {
