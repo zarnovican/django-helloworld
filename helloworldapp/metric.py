@@ -4,7 +4,13 @@ import os
 import psutil
 import time
 import threading
-from urllib.error import  URLError
+
+try:
+    # Py3
+    from urllib.error import URLError
+except ImportError:
+    # Py2
+    from urllib2 import URLError
 
 from prometheus_client import CollectorRegistry, Counter, Gauge, push_to_gateway, Summary
 
