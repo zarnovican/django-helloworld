@@ -1,7 +1,6 @@
 
 import logging
 import os
-import psutil
 import time
 import threading
 
@@ -24,21 +23,11 @@ response_code_total = Counter('response_code_total', 'Number of responses per HT
 
 def prometheus_push():
     logger.debug('init')
-    p = psutil.Process(os.getpid())
-    process_name = p.cmdline()[0]
-    if not process_name.startswith('uWSGI worker '):
-        logger.warning('Prometheus client not started. Worker\'s process name ("{}") should'
-                       ' contain "uWSGI worker" string, please start uwsgi'
-                       ' with --auto-procname option.'.format(process_name))
-        return
-
-    worker_id = process_name.split()[2]
     logger.debug('entering loop')
     while True:
         logger.debug('pushing..')
         try:
-            push_to_gateway('localhost:9091', job='helloworld', registry=registry,
-                            grouping_key={'service': 'helloworld', 'worker': worker_id, })
+            push_to_gateway('localhost:9091', job='helloworld', registry=registry)
         except URLError as e:
             logger.warning('Failed to push Prometheus metrics ({})'.format(e))
         time.sleep(10)

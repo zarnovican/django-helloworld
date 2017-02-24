@@ -7,7 +7,6 @@ setup(
         'Django',
         'uwsgi',
         'raven',
-        'psutil',
         'prometheus_client',
         'setuptools_scm',
     ],
