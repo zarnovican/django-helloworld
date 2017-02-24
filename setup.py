@@ -5,8 +5,8 @@ setup(
     name='helloworld',
     install_requires=[
         'Django',
+        'em_tools',
         'uwsgi',
-        'raven',
         'prometheus_client',
         'setuptools_scm',
     ],
