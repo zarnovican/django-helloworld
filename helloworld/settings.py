@@ -15,12 +15,19 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SERVICE_NAME = "helloworld"
+#
+# configuration parameters read from env variables
+#
+SERVICE_NAME = os.environ.get('SERVICE_NAME', 'helloworld')
+DOCKER_TASK_SLOT = os.environ.get('DOCKER_TASK_SLOT', '')
 
-METRICS = "1"
-METRICS_INTERVAL = 10
-METRICS_HOST = "localhost"
-METRICS_TAGS = ""
+LOG_TARGET = os.environ.get('LOG_TARGET', 'console')
+VERBOSITY = int(os.environ.get('VERBOSITY', '2'))
+
+METRICS = os.environ.get('METRICS', '')
+METRICS_INTERVAL = int(os.environ.get('METRICS_INTERVAL', '10'))
+METRICS_HOST = os.environ.get('METRICS_HOST', 'localhost')
+METRICS_TAGS = os.environ.get('METRICS_TAGS', '')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
