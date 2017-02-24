@@ -90,3 +90,5 @@ ENV/
 
 # vim backup files
 .*.sw?
+
+db.sqlite3
