@@ -29,6 +29,14 @@ METRICS_INTERVAL = int(os.environ.get('METRICS_INTERVAL', '10'))
 METRICS_HOST = os.environ.get('METRICS_HOST', 'localhost')
 METRICS_TAGS = os.environ.get('METRICS_TAGS', '')
 
+log_handlers = [LOG_TARGET, ]
+log_level = {
+    0:  'ERROR',
+    1:  'WARNING',
+    2:  'INFO',
+    3:  'DEBUG',
+}[VERBOSITY]
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -101,15 +109,22 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'journal': {
+        'console': {
+            'format': '%(asctime)s %(levelname)s %(name)s %(message)s',
+        },
+        'syslog': {
             'format': '{}: %(name)s %(message)s'.format(SERVICE_NAME),
         },
     },
     'handlers': {
-        'journal': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+        'syslog': {
             'class': 'logging.handlers.SysLogHandler',
             'address': '/dev/log',
-            'formatter': 'journal',
+            'formatter': 'syslog',
         },
         'sentry': {
             'level': 'WARNING',
@@ -117,8 +132,8 @@ LOGGING = {
         },
     },
     'root': {
-        'level': 'INFO',
-        'handlers': ['journal', 'sentry'],
+        'level': log_level,
+        'handlers': log_handlers,
     },
     'loggers': {
         #'django': {
