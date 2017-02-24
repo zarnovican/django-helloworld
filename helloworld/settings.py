@@ -24,12 +24,17 @@ DOCKER_TASK_SLOT = os.environ.get('DOCKER_TASK_SLOT', '')
 LOG_TARGET = os.environ.get('LOG_TARGET', 'console')
 VERBOSITY = int(os.environ.get('VERBOSITY', '2'))
 
+SENTRY_DSN = os.environ.get('SENTRY_DSN', '')
+
 METRICS = os.environ.get('METRICS', '')
 METRICS_INTERVAL = int(os.environ.get('METRICS_INTERVAL', '10'))
 METRICS_HOST = os.environ.get('METRICS_HOST', 'localhost')
 METRICS_TAGS = os.environ.get('METRICS_TAGS', '')
 
 log_handlers = [LOG_TARGET, ]
+if SENTRY_DSN:
+    log_handlers.append('sentry')
+
 log_level = {
     0:  'ERROR',
     1:  'WARNING',
@@ -101,7 +106,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 RAVEN_CONFIG = {
-    'dsn': '',
+    'dsn': SENTRY_DSN,
     'release': '1.0',
 }
 
