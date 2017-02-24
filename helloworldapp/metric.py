@@ -18,8 +18,8 @@ logger = logging.getLogger(__name__)
 registry = CollectorRegistry()
 
 # application metrics
-request_latency_seconds = Summary('request_latency_seconds', 'Time spent in handling request', registry=registry)
-response_code_total = Counter('response_code_total', 'Number of responses per HTTP code', ['code'], registry=registry)
+REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request', ['url'], registry=registry)
+REQUEST_COUNT = Counter('request_total', 'Number of requests', registry=registry)
 
 def prometheus_push():
     logger.debug('init')

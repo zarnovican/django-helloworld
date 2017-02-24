@@ -2,15 +2,13 @@ import logging
 import random
 from django.http import HttpResponse, HttpResponseForbidden
 
-from . import metric
+from metric import REQUEST_TIME, REQUEST_COUNT
 
 logger = logging.getLogger(__name__)
 
-@metric.request_latency_seconds.time()
 def index(request):
-    logger.debug('index viewed')
-    if random.randint(0, 100) < 10:
-        metric.response_code_total.labels(code=403).inc()
-        return HttpResponseForbidden()
-    metric.response_code_total.labels(code=200).inc()
-    return HttpResponse("Hello, world. You're at the helloworld index.")
+    REQUEST_COUNT.inc()
+    return HttpResponse('Hello!\n', content_type='text/plain')
+
+# TODO: I wasn't able to write this as decorator
+index = REQUEST_TIME.labels(url='index').time()(index)
