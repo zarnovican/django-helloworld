@@ -23,7 +23,8 @@ def get_info(request):
     if settings.DOCKER_TASK_SLOT:
         iam += '.{}'.format(settings.DOCKER_TASK_SLOT)
 
-    return HttpResponse('{} (<version>) on {}: your IP {}\n'.format(
-        iam, socket.gethostname(), request.META['REMOTE_ADDR']), content_type='text/plain')
+    return HttpResponse('{} ({}) on {}: your IP {}\n'.format(
+        iam, settings.VERSION, socket.gethostname(), request.META['REMOTE_ADDR']),
+        content_type='text/plain')
 
 get_info = REQUEST_TIME.labels(url='index').time()(get_info)

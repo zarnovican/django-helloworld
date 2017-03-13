@@ -1,5 +1,6 @@
 
 import logging
+from setuptools_scm import get_version
 
 from django.apps import AppConfig
 from django.conf import settings
@@ -14,4 +15,5 @@ class HelloworldappConfig(AppConfig):
 
     def ready(self):
         logger.info('Application ready')
+        settings.VERSION = get_version()
         setup_metrics(settings)
