@@ -1,0 +1,2 @@
+-r requirements.static.txt
+-r requirements.freeze.txt
