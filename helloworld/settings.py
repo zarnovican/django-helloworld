@@ -31,9 +31,32 @@ METRICS_INTERVAL = int(os.environ.get('METRICS_INTERVAL', '10'))
 METRICS_HOST = os.environ.get('METRICS_HOST', 'localhost')
 METRICS_TAGS = os.environ.get('METRICS_TAGS', '')
 
-log_handlers = [LOG_TARGET, ]
+# list of log handler names ('console', 'syslog', 'sentry')
+root_handlers = [LOG_TARGET, ]
 if SENTRY_DSN:
-    log_handlers.append('sentry')
+    root_handlers.append('sentry')
+
+# define only log handlers that are actually used
+log_handlers = {}
+
+if 'console' in root_handlers:
+    log_handlers['console'] = {
+        'class': 'logging.StreamHandler',
+        'formatter': 'console',
+    }
+
+if 'syslog' in root_handlers:
+    log_handlers['syslog'] = {
+        'class': 'logging.handlers.SysLogHandler',
+        'address': '/dev/log',
+        'formatter': 'syslog',
+    }
+
+if 'sentry' in root_handlers:
+    log_handlers['sentry'] = {
+        'level': 'WARNING',
+        'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+    }
 
 log_level = {
     0:  'ERROR',
@@ -121,24 +144,10 @@ LOGGING = {
             'format': '{}: %(name)s %(message)s'.format(SERVICE_NAME),
         },
     },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console',
-        },
-        'syslog': {
-            'class': 'logging.handlers.SysLogHandler',
-            'address': '/dev/log',
-            'formatter': 'syslog',
-        },
-        'sentry': {
-            'level': 'WARNING',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-        },
-    },
+    'handlers': log_handlers,
     'root': {
         'level': log_level,
-        'handlers': log_handlers,
+        'handlers': root_handlers,
     },
     'loggers': {
         #'django': {
