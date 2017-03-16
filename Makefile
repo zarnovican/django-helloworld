@@ -9,3 +9,10 @@ image:
 
 tag:
 	docker tag zarnovican/django-helloworld zarnovican/django-helloworld:$(shell python setup.py --version | tr + _)
+
+confd.bin:
+	wget -O confd.bin https://github.com/zarnovican/confd/releases/download/v0.12.0-alpha3-51-g7ac1091/confd
+	chmod 755 confd.bin
+
+uwsgi.ini: confd.bin confd/templates/uwsgi.ini.tmpl
+	./confd.bin -backend env -onetime -confdir ./confd/

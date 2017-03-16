@@ -92,3 +92,6 @@ ENV/
 .*.sw?
 
 db.sqlite3
+
+# cached 'confd' binary
+confd.bin

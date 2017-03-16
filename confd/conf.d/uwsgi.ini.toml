@@ -1,0 +1,9 @@
+[template]
+# source is searched in <confdir>/templates/
+src = "uwsgi.ini.tmpl"
+# destination is relative to where confd is executed
+dest = "./uwsgi.ini"
+keys = [
+    "/port",
+    "/log/target",
+]
