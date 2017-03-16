@@ -95,3 +95,6 @@ db.sqlite3
 
 # cached 'confd' binary
 confd.bin
+
+# uwsgi.ini is generated at runtime
+uwsgi.ini
