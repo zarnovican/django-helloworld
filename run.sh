@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# if /dev/log is not mapped to container, override LOG_TARGET
-[ ! -S /dev/log ] && export LOG_TARGET=console
+if [ "$LOG_TARGET" == "syslog" -a ! -S /dev/log ]; then
+    echo "Logging to syslog configured, but /dev/log not found! Falling back to console."
+    export LOG_TARGET=console
+fi
 
 /usr/local/bin/confd -backend env -onetime -confdir ./confd/ &&
 exec uwsgi uwsgi.ini
