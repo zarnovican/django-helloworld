@@ -28,3 +28,9 @@ def get_info(request):
         content_type='text/plain')
 
 get_info = REQUEST_TIME.labels(url='index').time()(get_info)
+
+def get_health(request):
+    REQUEST_COUNT.inc()
+    return HttpResponse('ok\n', content_type='text/plain')
+
+get_health = REQUEST_TIME.labels(url='health').time()(get_health)
