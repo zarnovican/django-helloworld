@@ -27,7 +27,7 @@ def get_info(request):
         iam, settings.VERSION, socket.gethostname(), request.META['REMOTE_ADDR']),
         content_type='text/plain')
 
-get_info = REQUEST_TIME.labels(url='index').time()(get_info)
+get_info = REQUEST_TIME.labels(url='info').time()(get_info)
 
 def get_health(request):
     REQUEST_COUNT.inc()
