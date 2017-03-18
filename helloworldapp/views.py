@@ -43,7 +43,7 @@ def log_sample(request, level):
     if level == 'info':
         logging.info('This is a sample info message')
     elif level == 'warning':
-        logging.warning('This is a sample warning message\nmulti\n  extra=%s', some_extra_info)
+        logging.warning('This is a sample warning message\n    multi\n  multi-line with extra=%s', some_extra_info)
     elif level == 'error':
         logging.error("""Agghrrr! Something horrible ..
     ..just happened. We are all doomed (extra=%s)""", some_extra_info)
