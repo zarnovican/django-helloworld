@@ -10,10 +10,10 @@ RUN \
     wget -O /usr/local/bin/confd https://github.com/zarnovican/confd/releases/download/v0.12.0-alpha3-51-g7ac1091/confd && \
     chmod 755 /usr/local/bin/confd
 
-COPY . /usr/src/app
-
 ENV PORT=8000
 
 HEALTHCHECK --interval=5s --timeout=2s --retries=1 CMD /bin/bash -c 'set -e; [ "`curl -sSf http://localhost:$PORT/mgmt/health`" == "ok" ]'
 
 ENTRYPOINT ["/bin/bash", "run.sh"]
+
+COPY . /usr/src/app
