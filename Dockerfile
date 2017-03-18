@@ -12,4 +12,8 @@ RUN \
 
 COPY . /usr/src/app
 
+ENV PORT=8000
+
+HEALTHCHECK --interval=5s --timeout=2s --retries=1 CMD /bin/bash -c 'set -e; [ "`curl -sSf http://localhost:$PORT/mgmt/health`" == "ok" ]'
+
 ENTRYPOINT ["/bin/bash", "run.sh"]
