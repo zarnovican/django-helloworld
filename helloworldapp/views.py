@@ -34,3 +34,24 @@ def get_health(request):
     return HttpResponse('ok\n', content_type='text/plain')
 
 get_health = REQUEST_TIME.labels(url='health').time()(get_health)
+
+def log_sample(request, level):
+    REQUEST_COUNT.inc()
+    level = level.lower()
+    some_extra_info = 'fooo'
+    logging.debug('"log_sample" called')
+    if level == 'info':
+        logging.info('This is a sample info message')
+    elif level == 'warning':
+        logging.warning('This is a sample warning message\nmulti\n  extra=%s', some_extra_info)
+    elif level == 'error':
+        logging.error("""Agghrrr! Something horrible ..
+    ..just happened. We are all doomed (extra=%s)""", some_extra_info)
+    elif level == 'exception':
+        1/0
+    else:
+        return HttpResponse('"{}" not recognized\n'.format(level), content_type='text/plain')
+
+    return HttpResponse('ok\n', content_type='text/plain')
+
+log_sample = REQUEST_TIME.labels(url='log_sample').time()(log_sample)
