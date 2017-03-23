@@ -16,9 +16,11 @@ class HelloworldappConfig(AppConfig):
     name = 'helloworldapp'
 
     def ready(self):
-        for i in range(10):
-            logger.info('Slowly starting app %d/10', i+1)
+        logger.info('Application starting..')
+        # simulate slow startup
+        for i in range(settings.DJANGO_STARTUP_TIME):
+            logger.info('Slowly starting app %d/%d', i+1, settings.DJANGO_STARTUP_TIME)
             time.sleep(1)
-        logger.info('Application ready')
         settings.VERSION = get_version()
         setup_metrics(settings)
+        logger.info('Application ready')

@@ -31,6 +31,8 @@ METRICS_INTERVAL = int(os.environ.get('METRICS_INTERVAL', '10'))
 METRICS_HOST = os.environ.get('METRICS_HOST', 'localhost')
 METRICS_TAGS = os.environ.get('METRICS_TAGS', '')
 
+DJANGO_STARTUP_TIME = int(os.environ.get('DJANGO_STARTUP_TIME', '10'))
+
 # list of log handler names ('console', 'syslog', 'sentry')
 root_handlers = [LOG_TARGET, ]
 if SENTRY_DSN:
