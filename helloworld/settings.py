@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from setuptools_scm import get_version
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,19 +20,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # configuration parameters read from env variables
 #
 SERVICE_NAME = os.environ.get('SERVICE_NAME', 'helloworld')
-DOCKER_TASK_SLOT = os.environ.get('DOCKER_TASK_SLOT', '')
+TASK_SLOT = int(os.environ.get('TASK_SLOT', '1'))
 
 LOG_TARGET = os.environ.get('LOG_TARGET', 'console')
-VERBOSITY = int(os.environ.get('VERBOSITY', '2'))
+LOG_LEVEL = os.environ.get('LOG_LEVEL', 'info')
 
 SENTRY_DSN = os.environ.get('SENTRY_DSN', '')
 
-METRICS = os.environ.get('METRICS', '')
-METRICS_INTERVAL = int(os.environ.get('METRICS_INTERVAL', '10'))
-METRICS_HOST = os.environ.get('METRICS_HOST', 'localhost')
-METRICS_TAGS = os.environ.get('METRICS_TAGS', '')
+PROMETHEUS_INTERVAL = int(os.environ.get('PROMETHEUS_INTERVAL', '10'))
+PROMETHEUS_HOST = os.environ.get('PROMETHEUS_HOST', '')
+PROMETHEUS_TAGS = os.environ.get('PROMETHEUS_TAGS', '')
 
 DJANGO_STARTUP_TIME = int(os.environ.get('DJANGO_STARTUP_TIME', '10'))
+
+VERSION = get_version()
 
 # list of log handler names ('console', 'syslog', 'sentry')
 root_handlers = [LOG_TARGET, ]
@@ -59,13 +61,6 @@ if 'sentry' in root_handlers:
         'level': 'WARNING',
         'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
     }
-
-log_level = {
-    0:  'ERROR',
-    1:  'WARNING',
-    2:  'INFO',
-    3:  'DEBUG',
-}[VERBOSITY]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -132,7 +127,11 @@ STATIC_URL = '/static/'
 
 RAVEN_CONFIG = {
     'dsn': SENTRY_DSN,
-    'release': '1.0',
+    'release': VERSION,
+    'tags': {
+        'service': SERVICE_NAME,
+        'slot': TASK_SLOT,
+    },
 }
 
 LOGGING = {
@@ -148,7 +147,7 @@ LOGGING = {
     },
     'handlers': log_handlers,
     'root': {
-        'level': log_level,
+        'level': LOG_LEVEL.upper(),
         'handlers': root_handlers,
     },
     'loggers': {

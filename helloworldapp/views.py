@@ -19,10 +19,7 @@ index = REQUEST_TIME.labels(url='index').time()(index)
 def get_info(request):
     REQUEST_COUNT.inc()
 
-    iam = settings.SERVICE_NAME
-    if settings.DOCKER_TASK_SLOT:
-        iam += '.{}'.format(settings.DOCKER_TASK_SLOT)
-
+    iam = '{}.{}'.format(settings.SERVICE_NAME, settings.TASK_SLOT)
     return HttpResponse('Django {} ({}) on {}: your IP {}\n'.format(
         iam, settings.VERSION, socket.gethostname(), request.META['REMOTE_ADDR']),
         content_type='text/plain')

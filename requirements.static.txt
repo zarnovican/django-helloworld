@@ -1,2 +1,2 @@
 # manually managed requirements from non-PyPI sources
--e git+https://github.com/zarnovican/em_tools.git@v0.0.5#egg=em_tools
+-e git+https://github.com/zarnovican/em_tools.git@v0.0.6#egg=em_tools
