@@ -1,5 +1,4 @@
 {{- $PORT := getv "/port" "8000" -}}
-{{- $LOG_TARGET := getv "/log/target" "console" -}}
 # !! this file is generated from template in confd/templates/
 # !! at container startup or by 'make uwsgi.ini' locally
 [uwsgi]
@@ -12,9 +11,10 @@ module = helloworld.wsgi:application
 # enable python thread support, required for Prometheus push
 enable-threads = true
 threads = 10
-{{ if eq $LOG_TARGET "syslog" }}
-# log uWSGI messages and uncaught exception to journal
-logger = syslog:helloworld
-{{ end }}
+
+# Do NOT enable syslog in uWSGI! It will switch on master-worker mode
+# It would break Prometheus, since the push thread is created on master process
+#logger = syslog:helloworld
+
 # don't log every request
 disable-logging = true
