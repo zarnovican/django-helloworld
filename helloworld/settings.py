@@ -27,9 +27,8 @@ LOG_LEVEL = os.environ.get('LOG_LEVEL', 'info')
 
 SENTRY_DSN = os.environ.get('SENTRY_DSN', '')
 
-PROMETHEUS_INTERVAL = int(os.environ.get('PROMETHEUS_INTERVAL', '10'))
+PROMETHEUS_PUSH_INTERVAL = int(os.environ.get('PROMETHEUS_PUSH_INTERVAL', '10'))
 PROMETHEUS_HOST = os.environ.get('PROMETHEUS_HOST', '')
-PROMETHEUS_TAGS = os.environ.get('PROMETHEUS_TAGS', '')
 
 DJANGO_STARTUP_TIME = int(os.environ.get('DJANGO_STARTUP_TIME', '10'))
 
